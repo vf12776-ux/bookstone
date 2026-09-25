@@ -20,6 +20,47 @@
             <h1 class="brand-name">BOOKSTONE</h1>
             <p class="subtitle">Навигация по сервисам</p>
         </header>
+        <!-- Кнопка установки для Android -->
+<button id="installBtnAndroid" class="install-btn" style="display: none;">
+    <span class="icon">📲</span>
+    <span class="text">Установить приложение</span>
+</button>
+
+<!-- Кнопка установки для iOS -->
+<button id="installBtnIOS" class="install-btn ios" style="display: none;">
+    <span class="icon">📲</span>
+    <span class="text">Установить приложение</span>
+</button>
+
+<!-- Модалка для Android (не Chrome) -->
+<div id="modalAndroid" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Установка приложения</h3>
+        <p>Для установки приложения откройте сайт в браузере <strong>Chrome</strong></p>
+        <ol>
+            <li>Скопируйте ссылку</li>
+            <li>Откройте Chrome</li>
+            <li>Вставьте ссылку и нажмите "Установить"</li>
+        </ol>
+        <button id="copyLinkBtn" class="modal-btn">📋 Скопировать ссылку</button>
+        <button id="openChromeBtn" class="modal-btn secondary">Открыть в Chrome</button>
+        <button class="modal-close" onclick="closeModal('modalAndroid')">Закрыть</button>
+    </div>
+</div>
+
+<!-- Модалка для iOS -->
+<div id="modalIOS" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Установка приложения</h3>
+        <p>Чтобы добавить Bookstone на главный экран:</p>
+        <ol>
+            <li>Нажмите кнопку <strong>"Поделиться"</strong> <span class="ios-icon">⬆️</span></li>
+            <li>Выберите <strong>"На экран «Домой»"</strong></li>
+            <li>Подтвердите нажатием <strong>"Добавить"</strong></li>
+        </ol>
+        <button class="modal-close" onclick="closeModal('modalIOS')">Понятно</button>
+    </div>
+</div>
 
         <main class="button-grid">
             <!-- 1. Магазин -->
