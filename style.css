@@ -1,9 +1,8 @@
 :root {
     --bg-color: #ffffff;
-    --text-color: #1a1a1a;
-    --accent-color: #000000;
-    --btn-bg: #f4f4f4;
-    --btn-hover: #e0e0e0;
+    --text-color: #000000;
+    --brand-yellow: #FFD700; /* Желтый цвет Bookstone */
+    --brand-hover: #E6C200;  /* Темнее при нажатии */
     --radius: 12px;
 }
 
@@ -20,7 +19,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 480px; /* Ограничение ширины как у мобильного приложения */
+    max-width: 480px;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
@@ -29,8 +28,8 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 25px;
+    margin-top: 10px;
 }
 
 .brand-name {
@@ -53,62 +52,76 @@ header {
     gap: 15px;
 }
 
+/* Основной стиль кнопок (Желтый) */
 .btn {
     display: flex;
     align-items: center;
-    justify-content: center; /* Центрируем контент */
+    justify-content: center;
     padding: 18px;
-    background-color: var(--btn-bg);
+    background-color: var(--brand-yellow);
     color: var(--text-color);
     text-decoration: none;
     border-radius: var(--radius);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.1rem;
     transition: transform 0.1s, background-color 0.2s;
-    border: 1px solid transparent;
+    border: 2px solid #000; /* Черная обводка для контраста */
+    box-shadow: 4px 4px 0px #000; /* Стильный эффект тени */
 }
 
 .btn:active {
-    transform: scale(0.98);
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
 }
 
 .btn:hover {
-    background-color: var(--btn-hover);
-}
-
-/* Основная кнопка (Магазин) */
-.btn-primary {
-    background-color: var(--accent-color);
-    color: white;
-}
-.btn-primary:hover {
-    background-color: #333;
-}
-
-/* Кнопки телефона */
-.phone-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.btn-outline {
-    border: 1px solid #ccc;
-    background: white;
-}
-
-/* Соцсети */
-.btn-social.insta {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
-    color: white;
-}
-.btn-social.tg {
-    background-color: #2AABEE;
-    color: white;
+    background-color: var(--brand-hover);
 }
 
 .icon {
-    margin-right: 10px;
-    font-size: 1.2rem;
+    margin-right: 12px;
+    font-size: 1.3rem;
+}
+
+/* Секция телефонов */
+.phone-section {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: var(--radius);
+    border: 1px solid #eee;
+}
+
+.section-title {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    text-align: center;
+    color: #333;
+    font-weight: 600;
+}
+
+.phone-btn {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    padding: 15px;
+}
+
+.phone-btn:last-child {
+    margin-bottom: 0;
+}
+
+/* Соцсети (оставляем их фирменные цвета) */
+.btn-social.insta {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    color: white;
+    border: none;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+}
+
+.btn-social.tg {
+    background-color: #2AABEE;
+    color: white;
+    border: none;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
 }
 
 footer {
