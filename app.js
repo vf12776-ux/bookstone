@@ -10,12 +10,15 @@ if ('serviceWorker' in navigator) {
 // Определение платформы
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 const isAndroid = /Android/.test(navigator.userAgent);
-const isChrome = /Chrome/.test(navigator.userAgent) && !/Edg|OPR|Samsung/.test(navigator.userAgent);
+
+// Определяем Chrome (исключая Edge, Opera, Samsung, Яндекс и другие)
+const isChrome = /Chrome/.test(navigator.userAgent) && 
+                 !/Edg|OPR|SamsungBrowser|YaBrowser|UCBrowser|MiuiBrowser/.test(navigator.userAgent);
 
 // Проверка, установлено ли уже PWA
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-// Переменная для хранения события установки (Android Chrome)
+// Переменная для хранения события установки (только для Chrome)
 let deferredPrompt;
 
 // Элементы
@@ -26,7 +29,7 @@ const modalIOS = document.getElementById('modalIOS');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 const openChromeBtn = document.getElementById('openChromeBtn');
 
-// Показываем кнопку установки если нужно
+// Показываем кнопку установки если PWA еще не установлено
 if (!isStandalone) {
     if (isIOS) {
         installBtnIOS.style.display = 'flex';
@@ -35,32 +38,35 @@ if (!isStandalone) {
     }
 }
 
-// Android Chrome: нативная установка
-if (isAndroid && isChrome) {
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-    });
+// === ANDROID ===
+if (isAndroid) {
+    // Chrome: нативная установка через beforeinstallprompt
+    if (isChrome) {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
 
-    installBtnAndroid.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                installBtnAndroid.style.display = 'none';
+        installBtnAndroid.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBtnAndroid.style.display = 'none';
+                }
+                deferredPrompt = null;
             }
-            deferredPrompt = null;
-        }
-    });
-} 
-// Android не-Chrome: модалка с инструкцией
-else if (isAndroid && !isChrome) {
-    installBtnAndroid.addEventListener('click', () => {
-        modalAndroid.style.display = 'flex';
-    });
+        });
+    } 
+    // Яндекс и другие браузеры: показываем модалку
+    else {
+        installBtnAndroid.addEventListener('click', () => {
+            modalAndroid.style.display = 'flex';
+        });
+    }
 }
 
-// iOS: модалка с инструкцией
+// === iOS ===
 if (isIOS) {
     installBtnIOS.addEventListener('click', () => {
         modalIOS.style.display = 'flex';
@@ -92,7 +98,6 @@ copyLinkBtn.addEventListener('click', async () => {
 
 // Открыть в Chrome (Android)
 openChromeBtn.addEventListener('click', () => {
-    // Пытаемся открыть Chrome через intent
     const url = window.location.href;
     const intentUrl = `intent://${new URL(url).host}${new URL(url).pathname}#Intent;scheme=https;package=com.android.chrome;end`;
     window.location.href = intentUrl;

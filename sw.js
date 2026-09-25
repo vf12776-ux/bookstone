@@ -1,5 +1,5 @@
 // ВАЖНО: При любых серьезных изменениях в сайте меняем версию здесь (например, на 'bookstone-v3')
-const CACHE_NAME = 'bookstone-v3'; 
+const CACHE_NAME = 'bookstone-v4'; 
 
 const ASSETS = [
     './',
