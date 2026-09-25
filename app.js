@@ -10,15 +10,11 @@ if ('serviceWorker' in navigator) {
 // Определение платформы
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 const isAndroid = /Android/.test(navigator.userAgent);
-
-// Определяем Chrome (исключая Edge, Opera, Samsung, Яндекс и другие)
 const isChrome = /Chrome/.test(navigator.userAgent) && 
                  !/Edg|OPR|SamsungBrowser|YaBrowser|UCBrowser|MiuiBrowser/.test(navigator.userAgent);
 
-// Проверка, установлено ли уже PWA
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-// Переменная для хранения события установки (только для Chrome)
 let deferredPrompt;
 
 // Элементы
@@ -26,10 +22,12 @@ const installBtnAndroid = document.getElementById('installBtnAndroid');
 const installBtnIOS = document.getElementById('installBtnIOS');
 const modalAndroid = document.getElementById('modalAndroid');
 const modalIOS = document.getElementById('modalIOS');
+const modalCall = document.getElementById('modalCall');
+const callBtn = document.getElementById('callBtn');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 const openChromeBtn = document.getElementById('openChromeBtn');
 
-// Показываем кнопку установки если PWA еще не установлено
+// Показываем кнопки установки
 if (!isStandalone) {
     if (isIOS) {
         installBtnIOS.style.display = 'flex';
@@ -38,9 +36,13 @@ if (!isStandalone) {
     }
 }
 
-// === ANDROID ===
+// Кнопка "Позвонить" - открывает модалку
+callBtn.addEventListener('click', () => {
+    modalCall.style.display = 'flex';
+});
+
+// Android установка
 if (isAndroid) {
-    // Chrome: нативная установка через beforeinstallprompt
     if (isChrome) {
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -57,16 +59,14 @@ if (isAndroid) {
                 deferredPrompt = null;
             }
         });
-    } 
-    // Яндекс и другие браузеры: показываем модалку
-    else {
+    } else {
         installBtnAndroid.addEventListener('click', () => {
             modalAndroid.style.display = 'flex';
         });
     }
 }
 
-// === iOS ===
+// iOS установка
 if (isIOS) {
     installBtnIOS.addEventListener('click', () => {
         modalIOS.style.display = 'flex';
@@ -79,10 +79,9 @@ copyLinkBtn.addEventListener('click', async () => {
         await navigator.clipboard.writeText(window.location.href);
         copyLinkBtn.textContent = '✅ Скопировано!';
         setTimeout(() => {
-            copyLinkBtn.textContent = '📋 Скопировать ссылку';
+            copyLinkBtn.textContent = 'Скопировать ссылку';
         }, 2000);
     } catch (err) {
-        // Fallback для старых браузеров
         const textArea = document.createElement('textarea');
         textArea.value = window.location.href;
         document.body.appendChild(textArea);
@@ -91,12 +90,12 @@ copyLinkBtn.addEventListener('click', async () => {
         document.body.removeChild(textArea);
         copyLinkBtn.textContent = '✅ Скопировано!';
         setTimeout(() => {
-            copyLinkBtn.textContent = '📋 Скопировать ссылку';
+            copyLinkBtn.textContent = 'Скопировать ссылку';
         }, 2000);
     }
 });
 
-// Открыть в Chrome (Android)
+// Открыть в Chrome
 openChromeBtn.addEventListener('click', () => {
     const url = window.location.href;
     const intentUrl = `intent://${new URL(url).host}${new URL(url).pathname}#Intent;scheme=https;package=com.android.chrome;end`;
@@ -108,7 +107,6 @@ function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
-// Закрытие модалки по клику вне её
 window.addEventListener('click', (e) => {
     if (e.target.classList.contains('modal')) {
         e.target.style.display = 'none';

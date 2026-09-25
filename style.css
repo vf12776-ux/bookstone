@@ -1,9 +1,9 @@
 :root {
-    --bg-color: #ffffff;
+    --bg-color: #f5f5f5;
     --text-color: #000000;
-    --brand-yellow: #FFD700; /* Желтый цвет Bookstone */
-    --brand-hover: #E6C200;  /* Темнее при нажатии */
-    --radius: 12px;
+    --brand-yellow: #FFD700;
+    --brand-hover: #E6C200;
+    --radius: 50px;
 }
 
 body {
@@ -52,12 +52,12 @@ header {
     gap: 15px;
 }
 
-/* Основной стиль кнопок (Желтый) */
+/* Основные кнопки - овальные, желтые */
 .btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 18px;
+    padding: 20px;
     background-color: var(--brand-yellow);
     color: var(--text-color);
     text-decoration: none;
@@ -65,72 +65,42 @@ header {
     font-weight: 700;
     font-size: 1.1rem;
     transition: transform 0.1s, background-color 0.2s;
-    border: 2px solid #000; /* Черная обводка для контраста */
-    box-shadow: 4px 4px 0px #000; /* Стильный эффект тени */
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000;
+    transform: scale(0.98);
 }
 
 .btn:hover {
     background-color: var(--brand-hover);
 }
 
-.icon {
-    margin-right: 12px;
-    font-size: 1.3rem;
+.text {
+    font-size: 1.1rem;
 }
 
-/* Секция телефонов */
-.phone-section {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: var(--radius);
-    border: 1px solid #eee;
-}
-
-.section-title {
-    margin: 0 0 10px 0;
-    font-size: 1rem;
-    text-align: center;
-    color: #333;
-    font-weight: 600;
-}
-
-.phone-btn {
-    margin-bottom: 10px;
-    font-size: 1rem;
-    padding: 15px;
-}
-
-.phone-btn:last-child {
-    margin-bottom: 0;
-}
-
-/* Соцсети (оставляем их фирменные цвета) */
+/* Соцсети */
 .btn-social.insta {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: white;
-    border: none;
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
 }
 
 .btn-social.tg {
-    background-color: #2AABEE;
+    background-color: #0088cc;
     color: white;
-    border: none;
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
 }
 
-footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 0.8rem;
-    color: #999;
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
 }
-/* Кнопка установки */
+
+/* Кнопки установки */
 .install-btn {
     display: flex;
     align-items: center;
@@ -138,20 +108,13 @@ footer {
     padding: 18px;
     background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
     color: #000;
-    border: 2px solid #000;
+    border: none;
     border-radius: var(--radius);
     font-weight: 700;
     font-size: 1.1rem;
     cursor: pointer;
     margin-bottom: 15px;
-    box-shadow: 4px 4px 0px #000;
-    transition: transform 0.1s;
     width: 100%;
-}
-
-.install-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000;
 }
 
 .install-btn.ios {
@@ -178,16 +141,15 @@ footer {
 .modal-content {
     background: white;
     padding: 30px;
-    border-radius: var(--radius);
+    border-radius: 20px;
     max-width: 400px;
     width: 100%;
-    border: 2px solid #000;
-    box-shadow: 8px 8px 0px #000;
 }
 
 .modal-content h3 {
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     font-size: 1.3rem;
+    text-align: center;
 }
 
 .modal-content p {
@@ -201,40 +163,60 @@ footer {
     line-height: 1.8;
 }
 
+.phone-option {
+    display: block;
+    padding: 18px;
+    background-color: var(--brand-yellow);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 10px;
+    transition: background-color 0.2s;
+}
+
+.phone-option:hover {
+    background-color: var(--brand-hover);
+}
+
+.phone-option:last-of-type {
+    margin-bottom: 20px;
+}
+
 .modal-btn {
     width: 100%;
     padding: 15px;
-    background: #FFD700;
+    background: var(--brand-yellow);
     color: #000;
-    border: 2px solid #000;
+    border: none;
     border-radius: var(--radius);
     font-weight: 700;
     font-size: 1rem;
     cursor: pointer;
     margin-bottom: 10px;
-    box-shadow: 3px 3px 0px #000;
-}
-
-.modal-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 2px 2px 0px #000;
 }
 
 .modal-btn.secondary {
     background: white;
+    border: 2px solid #000;
 }
 
 .modal-close {
     width: 100%;
     padding: 12px;
     background: #f0f0f0;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: var(--radius);
     font-size: 0.9rem;
     cursor: pointer;
     margin-top: 10px;
 }
 
-.ios-icon {
-    font-size: 1.2rem;
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #999;
 }
